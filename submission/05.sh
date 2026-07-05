@@ -8,6 +8,6 @@ recipient="2MvLcssW49n9atmksjwg2ZCMsEMsoj3pzUP"
 utxo_vout0=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq  -r ".vout | .[0] | .n")
 utxo_vout1=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq  -r ".vout | .[1] | .n")
 rawtxhex=$(bitcoin-cli -regtest -rpcwallet=btrustwallet createrawtransaction "[{\"txid\": \"$utxo_txid\", \"vout\": $utxo_vout0},{\"txid\": \"$utxo_txid\", \"vout\": $utxo_vout1}]" "[{\"$recipient\": 0.20000000}]")
-bitcoin-cli -regtest -rpcwallet=btrustwallet signrawtransactionwithwallet $rawtxhex | jq ".hex"
+bitcoin-cli -regtest -rpcwallet=btrustwallet signrawtransactionwithwallet $rawtxhex | jq -r ".hex"
 # printf '%s' "$hex" | sha256sum
 # echo $hex | jq
